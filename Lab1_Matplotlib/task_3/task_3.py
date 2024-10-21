@@ -5,6 +5,7 @@ import numpy as np
 data = []
 label = []
 
+#Преобразуем таблицу в удобный для нашей работы контейнер данных
 with open('students.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
     for row in reader:
@@ -15,7 +16,7 @@ with open('students.csv', newline='') as csvfile:
         strok=[name,group,grade]
         data.append(strok)
 
-# Sorted by preps
+# Сортируем для облегчения работы, после чего получаем массив заголовков столбцов нашей гистограммы
 data=sorted(data, key = lambda e: e[1])
 ded=data[0][1]
 label.append(ded)
@@ -24,6 +25,7 @@ for i in data:
         ded=i[1]
         label.append(ded)
 
+# Получаем массив, состоящий из количества полученных тех или иных оценок для каждего столбца
 grades=[3,4,5,6,7,8,9,10]
 quantity=[0]*len(label)
 for i in range (len(label)):
@@ -39,6 +41,7 @@ for i in data:
         k+=1
         quantity[k][i[2]-3]+=1
 
+#Преобразуем полученные контейнеры для того, чтобы "засунуть их" в функцию 
 category_names = list(map(str,grades))
 results = {}
 
@@ -48,16 +51,7 @@ for m in label:
     i+=1
 
 def survey(results, category_names):
-    """
-    Parameters
-    ----------
-    results : dict
-        A mapping from question labels to a list of answers per category.
-        It is assumed all lists contain the same number of entries and that
-        it matches the length of *category_names*.
-    category_names : list of str
-        The category labels.
-    """
+
     labels = list(results.keys())
     data = np.array(list(results.values()))
     data_cum = data.cumsum(axis=1)
