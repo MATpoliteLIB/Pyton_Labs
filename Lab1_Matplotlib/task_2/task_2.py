@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math as m
 
+# Считываем количество строк, а также получаем пределы значений на графиках
 file1 = open("data.txt", "r")
 data = file1.readlines()
 file1.close()
@@ -23,6 +24,7 @@ cols = 2
 rows = m.ceil(lines/4)
 print(min_x, max_x, min_y, max_y)
 
+#Строим графики
 f=open("data.txt","r")
 axis = plt.figure(figsize=(10,8),constrained_layout=True).subplots(rows, cols)
 for i in range (lines//2):
